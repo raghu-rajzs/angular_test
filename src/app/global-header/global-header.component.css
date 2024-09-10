@@ -1,0 +1,19 @@
+nz-menu {
+  display: flex;
+  justify-items: flex-start;
+}
+
+li {
+  font-size: large;
+  color: #262626;
+  font-weight: 500;
+}
+
+li:hover {
+  color: #ec7200;
+}
+
+.ant-menu-submenu-active {
+  color: #ec7200;
+
+}

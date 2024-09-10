@@ -1,0 +1,11 @@
+.card-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  background: #f2f2f2;
+}
+
+nz-card {
+  margin: 5px;
+}
