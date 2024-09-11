@@ -17,3 +17,16 @@ li:hover {
   color: #ec7200;
 
 }
+
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+
+.avatar-group {
+  display: flex;
+  justify-content: space-between;
+  width: 120px;
+  align-items: center;
+}

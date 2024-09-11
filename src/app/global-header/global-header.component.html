@@ -1,26 +1,19 @@
-<ul nz-menu nzMode="horizontal">
-  <li nz-menu-item nzSelected>
-    <span nz-icon nzType="mail"></span>
-    Portfolio Insights
-  </li>
-  <li nz-menu-item>
-    <span nz-icon nzType="mail"></span>
-    Portfolio Outline
-  </li>
-  <li nz-menu-item>
-    <span nz-icon nzType="mail"></span>
-    Portfolio Health
-  </li>
-  <li nz-menu-item>
-    <span nz-icon nzType="mail"></span>
-    Benchmarking
-  </li>
-  <li nz-menu-item>
-    <span nz-icon nzType="mail"></span>
-    Comparision Analysis
-  </li>
-  <li nz-menu-item>
-    <span nz-icon nzType="mail"></span>
-    Budget
-  </li>
-</ul>
+<div class="navContainer">
+  <div>
+    <nz-tabset>
+      <nz-tab nzTitle="Portfolio Insights"></nz-tab>
+      <nz-tab nzTitle="Portfolio Outline"></nz-tab>
+      <nz-tab nzTitle="Portfolio Health"></nz-tab>
+      <nz-tab nzTitle="Benchmarking"></nz-tab>
+      <nz-tab nzTitle="Comparision Analysis"></nz-tab>
+      <nz-tab nzTitle="Budget"></nz-tab>
+    </nz-tabset>
+  </div>
+  <div class="avatar-group">
+    <nz-badge nzDot>
+      <nz-avatar nzIcon="bell" [nzShape]="'circle'"></nz-avatar>
+    </nz-badge>
+    <nz-avatar nzIcon="message" [nzShape]="'circle'"></nz-avatar>
+    <nz-avatar nzIcon="user" [nzShape]="'circle'"></nz-avatar>
+  </div>
+</div>
