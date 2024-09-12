@@ -1,7 +1,7 @@
-<canvas baseChart
-        [data]="barChartData"
-        [options]="barChartOptions"
-        [plugins]="barChartPlugins"
-        [legend]="barChartLegend"
-        [type]="'bar'">
-</canvas>
+<div class="charts">
+        <canvas baseChart width="300" height="300" [data]="barChartData" [options]="barChartOptions" [type]="'bar'"></canvas>
+        <canvas baseChart [type]="'pie'" [datasets]="pieChartDatasets" [labels]="pieChartLabels"
+                [options]="pieChartOptions"></canvas>
+        <canvas baseChart width="300" height="300" [type]="'line'" [data]="lineChartData"
+                [options]="lineChartOptions"></canvas>
+</div>
