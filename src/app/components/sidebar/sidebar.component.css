@@ -17,7 +17,6 @@ nz-sider {
   height: 100%;
   position: fixed;
   left: 0;
-  width: max-content;
   padding: 5px;
 }
 
@@ -43,4 +42,11 @@ nz-content {
 
 nz-footer {
   text-align: center;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-evenly; */
+  height: 100%;
 }

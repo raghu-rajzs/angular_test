@@ -1,42 +1,66 @@
 <nz-layout class="layout">
   <nz-sider>
-    <div class="logo">
-      <img src="logo.png" alt="asdasdad" />
+    <div nz-menu nzTheme="dark" nzMode="inline" class="sidebar">
+      <div>
+        <div class="logo">
+          <img src="logo.png" alt="asdasdad" />
+        </div>
+        <ul>
+          <li nz-menu-item>
+            <a routerLink="outline">
+              <span nz-icon nzType="file"></span>
+              <span>nav 1</span>
+            </a>
+          </li>
+          <li nz-menu-item>
+            <a routerLink="outline">
+              <span nz-icon nzType="video-camera"></span>
+              <span>nav 2</span>
+            </a>
+          </li>
+          <li nz-menu-item>
+            <a routerLink="outline">
+              <span nz-icon nzType="upload"></span>
+              <span>nav 3</span>
+            </a>
+          </li>
+          <li nz-menu-item>
+            <a routerLink="outline">
+              <span nz-icon nzType="bar-chart"></span>
+              <span>nav 4</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li nz-menu-item>
+            <a routerLink="outline">
+              <span nz-icon nzType="cloud-o"></span>
+              <span>nav 5</span>
+            </a>
+          </li>
+          <li nz-menu-item>
+            <a routerLink="outline">
+              <span nz-icon nzType="appstore-o"></span>
+              <span>nav 6</span>
+            </a>
+          </li>
+          <li nz-menu-item>
+            <a routerLink="outline">
+              <span nz-icon nzType="team"></span>
+              <span>nav 7</span>
+            </a>
+          </li>
+          <li nz-menu-item>
+            <a routerLink="outline">
+              <span nz-icon nzType="shop"></span>
+              <span>nav 8</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline">
-      <li nz-menu-item>
-        <span nz-icon nzType="file"></span>
-        <span>nav 1</span>
-      </li>
-      <li nz-menu-item>
-        <span nz-icon nzType="video-camera"></span>
-        <span>nav 2</span>
-      </li>
-      <li nz-menu-item>
-        <span nz-icon nzType="upload"></span>
-        <span>nav 3</span>
-      </li>
-      <li nz-menu-item>
-        <span nz-icon nzType="bar-chart"></span>
-        <span>nav 4</span>
-      </li>
-      <li nz-menu-item>
-        <span nz-icon nzType="cloud-o"></span>
-        <span>nav 5</span>
-      </li>
-      <li nz-menu-item>
-        <span nz-icon nzType="appstore-o"></span>
-        <span>nav 6</span>
-      </li>
-      <li nz-menu-item>
-        <span nz-icon nzType="team"></span>
-        <span>nav 7</span>
-      </li>
-      <li nz-menu-item>
-        <span nz-icon nzType="shop"></span>
-        <span>nav 8</span>
-      </li>
-    </ul>
   </nz-sider>
   <nz-layout class="right-layout">
     <nz-header>
@@ -47,8 +71,11 @@
         <app-health-score></app-health-score>
         <app-table></app-table>
         <app-inights-block></app-inights-block>
+        <app-charts></app-charts>
       </div>
     </nz-content>
     <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
   </nz-layout>
 </nz-layout>
+
+<!-- <router-outlet></router-outlet> -->

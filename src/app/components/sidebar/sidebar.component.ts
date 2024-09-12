@@ -6,6 +6,8 @@ import { GlobalHeaderComponent } from '../global-header/global-header.component'
 import { TableComponent } from '../table/table.component';
 import { HealthScoreComponent } from '../health-score/health-score.component';
 import { InightsBlockComponent } from '../inights-block/inights-block.component';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { ChartsComponent } from "../charts/charts.component";
 
 @Component({
   selector: 'app-sidebar',
@@ -18,7 +20,9 @@ import { InightsBlockComponent } from '../inights-block/inights-block.component'
     TableComponent,
     HealthScoreComponent,
     InightsBlockComponent,
-  ],
+    RouterLink,
+    ChartsComponent
+],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
 })
