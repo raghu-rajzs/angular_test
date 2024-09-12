@@ -15,18 +15,24 @@ li:hover {
 
 .ant-menu-submenu-active {
   color: #ec7200;
-
 }
 
 .navContainer {
   display: flex;
   justify-content: space-between;
+}
+.navContainer > div {
   padding: 0 30px;
+}
+
+nz-tabset {
+  display: flex;
 }
 
 .avatar-group {
   display: flex;
   justify-content: space-between;
-  width: 120px;
+  width: fit-content;
   align-items: center;
+  gap: 5px;
 }

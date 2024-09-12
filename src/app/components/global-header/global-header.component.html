@@ -1,12 +1,26 @@
 <div class="navContainer">
   <div>
-    <nz-tabset>
-      <nz-tab nzTitle="Portfolio Insights"></nz-tab>
-      <nz-tab nzTitle="Portfolio Outline"></nz-tab>
-      <nz-tab nzTitle="Portfolio Health"></nz-tab>
-      <nz-tab nzTitle="Benchmarking"></nz-tab>
-      <nz-tab nzTitle="Comparision Analysis"></nz-tab>
-      <nz-tab nzTitle="Budget"></nz-tab>
+    <nz-tabset nzLinkRouter>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['']"> Portfolio Insights </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['outline']">
+          Portfolio Outline
+        </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['']"> Portfolio Health </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['']"> Benchmarking </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['']"> Comparision Analysis </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['']"> Budget </a>
+      </nz-tab>
     </nz-tabset>
   </div>
   <div class="avatar-group">

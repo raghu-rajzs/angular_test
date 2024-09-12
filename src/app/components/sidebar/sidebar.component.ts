@@ -6,7 +6,7 @@ import { GlobalHeaderComponent } from '../global-header/global-header.component'
 import { TableComponent } from '../table/table.component';
 import { HealthScoreComponent } from '../health-score/health-score.component';
 import { InightsBlockComponent } from '../inights-block/inights-block.component';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { ChartsComponent } from "../charts/charts.component";
 
 @Component({
