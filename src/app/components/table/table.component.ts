@@ -1,18 +1,47 @@
-import { Component } from '@angular/core';
-import { NzTableModule, NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder } from 'ng-zorro-antd/table';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Component, Injectable, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
-interface DataItem {
-  name: string;
-  age: number;
-  address: string;
+import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
+
+interface RandomUser {
+  gender: string;
+  email: string;
+  name: {
+    title: string;
+    first: string;
+    last: string;
+  };
+  cell: string;
 }
+@Injectable({ providedIn: 'root' })
+export class RandomUserService {
+  randomUserUrl = 'https://api.randomuser.me/';
 
-interface ColumnItem {
-  name: string;
-  sortOrder: NzTableSortOrder | null;
-  sortFn: NzTableSortFn<DataItem> | null;
-  listOfFilter: NzTableFilterList;
-  filterFn: NzTableFilterFn<DataItem> | null;
+  getUsers(
+    pageIndex: number,
+    pageSize: number,
+    sortField: string | null,
+    sortOrder: string | null,
+    filters: Array<{ key: string; value: string[] }>
+  ): Observable<{ results: RandomUser[] }> {
+    let params = new HttpParams()
+      .append('page', `${pageIndex}`)
+      .append('results', `${pageSize}`)
+      .append('sortField', `${sortField}`)
+      .append('sortOrder', `${sortOrder}`);
+    filters.forEach((filter) => {
+      filter.value.forEach((value) => {
+        params = params.append(filter.key, value);
+      });
+    });
+    return this.http
+      .get<{ results: RandomUser[] }>(`${this.randomUserUrl}`, { params })
+      .pipe(catchError(() => of({ results: [] })));
+  }
+
+  constructor(private http: HttpClient) {}
 }
 
 @Component({
@@ -20,91 +49,48 @@ interface ColumnItem {
   standalone: true,
   imports: [NzTableModule],
   templateUrl: './table.component.html',
-  styleUrl: './table.component.css'
+  styleUrl: './table.component.css',
 })
-export class TableComponent {
-  listOfColumns: ColumnItem[] = [
-    {
-      name: 'Name',
-      sortOrder: null,
-      sortFn: (a: DataItem, b: DataItem) => a.name.localeCompare(b.name),
-      listOfFilter: [
-        { text: 'Joe', value: 'Joe' },
-        { text: 'Jim', value: 'Jim' }
-      ],
-      filterFn: (list: string[], item: DataItem) => list.some(name => item.name.indexOf(name) !== -1)
-    },
-    {
-      name: 'Age',
-      sortOrder: null,
-      sortFn: (a: DataItem, b: DataItem) => a.age - b.age,
-      listOfFilter: [],
-      filterFn: null
-    },
-    {
-      name: 'Address',
-      sortFn: null,
-      sortOrder: null,
-      listOfFilter: [
-        { text: 'London', value: 'London' },
-        { text: 'Sidney', value: 'Sidney' }
-      ],
-      filterFn: (address: string, item: DataItem) => item.address.indexOf(address) !== -1
-    }
-  ];
-  listOfData: DataItem[] = [
-    {
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
-    },
-    {
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
-    },
-    {
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    },
-    {
-      name: 'Jim Red',
-      age: 32,
-      address: 'London No. 2 Lake Park'
-    }
+export class TableComponent implements OnInit {
+  total = 1;
+  listOfRandomUser: RandomUser[] = [];
+  loading = true;
+  pageSize = 10;
+  pageIndex = 1;
+  filterGender = [
+    { text: 'male', value: 'male' },
+    { text: 'female', value: 'female' },
   ];
 
-  sortByAge(): void {
-    this.listOfColumns.forEach(item => {
-      if (item.name === 'Age') {
-        item.sortOrder = 'descend';
-      } else {
-        item.sortOrder = null;
-      }
-    });
+  loadDataFromServer(
+    pageIndex: number,
+    pageSize: number,
+    sortField: string | null,
+    sortOrder: string | null,
+    filter: Array<{ key: string; value: string[] }>
+  ): void {
+    this.loading = true;
+    this.randomUserService
+      .getUsers(pageIndex, pageSize, sortField, sortOrder, filter)
+      .subscribe((data) => {
+        this.loading = false;
+        this.total = 200; // mock the total data here
+        this.listOfRandomUser = data.results;
+      });
   }
 
-  resetFilters(): void {
-    this.listOfColumns.forEach(item => {
-      if (item.name === 'Name') {
-        item.listOfFilter = [
-          { text: 'Joe', value: 'Joe' },
-          { text: 'Jim', value: 'Jim' }
-        ];
-      } else if (item.name === 'Address') {
-        item.listOfFilter = [
-          { text: 'London', value: 'London' },
-          { text: 'Sidney', value: 'Sidney' }
-        ];
-      }
-    });
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    console.log(params);
+    const { pageSize, pageIndex, sort, filter } = params;
+    const currentSort = sort.find((item) => item.value !== null);
+    const sortField = (currentSort && currentSort.key) || null;
+    const sortOrder = (currentSort && currentSort.value) || null;
+    this.loadDataFromServer(pageIndex, pageSize, sortField, sortOrder, filter);
   }
 
-  resetSortAndFilters(): void {
-    this.listOfColumns.forEach(item => {
-      item.sortOrder = null;
-    });
-    this.resetFilters();
+  constructor(private randomUserService: RandomUserService) {}
+
+  ngOnInit(): void {
+    this.loadDataFromServer(this.pageIndex, this.pageSize, null, null, []);
   }
 }

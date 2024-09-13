@@ -1,30 +1,31 @@
-<div class="table-operations">
-  <button nz-button (click)="sortByAge()">Sort age</button>
-  <button nz-button (click)="resetFilters()">Clear filters</button>
-  <button nz-button (click)="resetSortAndFilters()">Clear filters and sorters</button>
-</div>
-<nz-table #filterTable [nzData]="listOfData" nzTableLayout="fixed">
+<nz-table
+  nzShowSizeChanger
+  [nzData]="listOfRandomUser"
+  [nzFrontPagination]="false"
+  [nzLoading]="loading"
+  [nzTotal]="total"
+  [nzPageSize]="pageSize"
+  [nzPageIndex]="pageIndex"
+  (nzQueryParams)="onQueryParamsChange($event)"
+>
   <thead>
     <tr>
-      @for (column of listOfColumns; track column.name) {
-        <th
-          [(nzSortOrder)]="column.sortOrder"
-          [nzSortFn]="column.sortFn"
-          [nzFilters]="column.listOfFilter"
-          [nzFilterFn]="column.filterFn"
-        >
-          {{ column.name }}
-        </th>
-      }
+      <th nzColumnKey="name" [nzSortFn]="true">Name</th>
+      <th nzColumnKey="gender" [nzFilters]="filterGender" [nzFilterFn]="true">
+        Gender
+      </th>
+      <th nzColumnKey="email" [nzSortFn]="true">Email</th>
+      <th nzColumnKey="cell" [nzSortFn]="true">Phone</th>
     </tr>
   </thead>
   <tbody>
-    @for (data of filterTable.data; track data) {
-      <tr>
-        <td>{{ data.name }}</td>
-        <td>{{ data.age }}</td>
-        <td>{{ data.address }}</td>
-      </tr>
+    @for (data of listOfRandomUser; track data) {
+    <tr>
+      <td>{{ data.name.first }} {{ data.name.last }}</td>
+      <td>{{ data.gender }}</td>
+      <td>{{ data.email }}</td>
+      <td>{{ data.cell }}</td>
+    </tr>
     }
   </tbody>
 </nz-table>
