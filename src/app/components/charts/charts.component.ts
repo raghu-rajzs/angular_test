@@ -1,28 +1,52 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
+import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-charts',
   standalone: true,
-  imports: [BaseChartDirective],
+  imports: [BaseChartDirective, CommonModule, HttpClientModule],
   templateUrl: './charts.component.html',
   styleUrl: './charts.component.css'
 })
 export class ChartsComponent {
 
-  //Bar Chart
+
+  // Bar Chart
+  constructor(private http: HttpClient) { }
+
+  labels: any = [];
+  datasets: any = [];
+  APIURL = "http://localhost:8000/";
+
+  ngOnInit() {
+    this.get_data();
+  }
+
+  get_data() {
+    this.http.get<ApiResponse>(this.APIURL).subscribe((res) => {
+      this.labels = res.labels;
+      this.datasets = res.datasets;
+      this.updateChartData(); // Update chart data here
+    });
+  }
+
+  updateChartData() {
+    this.barChartData = {
+      labels: this.labels,
+      datasets: this.datasets
+    };
+  }
+
   public barChartData: ChartConfiguration<'bar'>['data'] = {
-    labels: [ '2006', '2007', '2008', '2009', '2010', '2011', '2012' ],
-    datasets: [
-      { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Series A' },
-      { data: [ 28, 48, 40, 19, 86, 27, 90 ], label: 'Series B' }
-    ]
+    labels: this.labels,
+    datasets: this.datasets
   };
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: false,
   };
-
 
  // Pie Chart
   public pieChartLabels = [ [ 'Download', 'Sales' ], [ 'In', 'Store', 'Sales' ], 'Mail Sales' ];
@@ -59,4 +83,9 @@ export class ChartsComponent {
     responsive: false
   };
 
+}
+
+interface ApiResponse {
+  labels: any[];
+  datasets: any[];
 }
